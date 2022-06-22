@@ -8,12 +8,11 @@ Notes:
 */
 
     const fetch = require('node-fetch');
-
-    const getPeople = fetch => {
-        return fetch('https://swapi.co/api/people')
+    
+    const getPeoplePromise = fetch => {
+        return fetch('https://swapi.dev/api/people')
             .then(response => response.json() )
             .then(data => {
-                console.log(data)
                 return {
                     count: data.count,
                     results: data.results
@@ -21,4 +20,19 @@ Notes:
             })
     };
 
-    getPeople(fetch)
+/* Fetching from swapi with async code: */
+    const getPeople = async (fetch) => {
+        const getRequest = await fetch('https://swapi.dev/api/people');
+        const data = await getRequest.json();
+        return {
+            count: data.count, 
+            results: data.results
+        }
+    };
+
+    /* getPeople(fetch) */
+
+    module.exports = {
+        getPeople,
+        getPeoplePromise
+    }
